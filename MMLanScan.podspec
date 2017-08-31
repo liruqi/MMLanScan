@@ -16,10 +16,10 @@ Pod::Spec.new do |s|
 + Gives you the ability to update the OUI (MAC-Brand mappings) plist file. Check in MainPresenter.m for more details
                    DESC
 
-  s.homepage         = 'https://github.com/mavris/MMLanScan'
+  s.homepage         = 'https://github.com/liruqi/MMLanScan'
   s.license          = { :type => 'MIT', :file => 'LICENSE.txt' }
-  s.author           = { 'Michael Mavris' => 'info@miksoft.net' }
-  s.source           = { :git => 'https://github.com/mavris/MMLanScan.git', :tag => s.version.to_s }
+  s.author           = { 'Michael Mavris' => 'info@miksoft.net', 'Ruqi Li' => 'liruqi@gmail.com' }
+  s.source           = { :git => 'https://github.com/liruqi/MMLanScan.git', :tag => s.version.to_s }
   s.ios.deployment_target = '8.0'
   s.source_files = 'MMLanScan/**/*.{h,m}'
   s.resources        = 'MMLanScan/Data/data.plist'
