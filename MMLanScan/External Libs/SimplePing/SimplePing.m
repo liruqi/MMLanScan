@@ -428,10 +428,11 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
     // This C routine is called by CFSocket when there's data waiting on our 
     // ICMP socket.  It just redirects the call to Objective-C code.
 {
-    SimplePing *    obj;
-    
-    obj = (__bridge SimplePing *) info;
-    assert([obj isKindOfClass:[SimplePing class]]);
+    SimplePing *obj = (__bridge SimplePing *) info;
+    if (! [obj isKindOfClass:[SimplePing class]]) {
+        NSLog(@"SimplePing instance may be deallocated");
+        return;
+    }
     
     #pragma unused(s)
     assert(s == obj->_socket);
@@ -480,7 +481,8 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
     if (err != 0) {
         [self didFailWithError:[NSError errorWithDomain:NSPOSIXErrorDomain code:err userInfo:nil]];
     } else {
-        CFSocketContext     context = {0, (__bridge void *)(self), NULL, NULL, NULL};
+        __weak SimplePing* wself = self;
+        CFSocketContext     context = {0, (__bridge void *)(wself), NULL, NULL, NULL};
         CFRunLoopSourceRef  rls;
         
         // Wrap it in a CFSocket and schedule it on the runloop.
