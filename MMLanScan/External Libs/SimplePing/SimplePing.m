@@ -413,7 +413,9 @@ static uint16_t in_cksum(const void *buffer, size_t bufferLen)
         if (err == 0) {
             err = EPIPE;
         }
-        [self didFailWithError:[NSError errorWithDomain:NSPOSIXErrorDomain code:err userInfo:nil]];
+        if ([self respondsToSelector:@selector(didFailWithError:)]) {
+            [self didFailWithError:[NSError errorWithDomain:NSPOSIXErrorDomain code:err userInfo:nil]];
+        }
     }
     
     free(buffer);
