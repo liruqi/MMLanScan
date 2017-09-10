@@ -442,7 +442,9 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
     #pragma unused(data)
     assert(data == nil);
     
-    [obj readData];
+    if ([obj respondsToSelector:@selector(readData)]) {
+        [obj readData];
+    }
 }
 
 - (void)startWithHostAddress
